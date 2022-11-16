@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import AdminLoginView from '../views/AdminLoginView.vue'
+import JobApplicationFormView from '../views/JobApplicationView.vue'
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/adminlogin',
     name: 'adminlogin',
     component: AdminLoginView
+  },
+  {
+    path: '/apply',
+    name: 'jobapplication',
+    component: JobApplicationFormView
   }
 
 ]

@@ -13,7 +13,7 @@
             For everyone that's looking to progress further in their sofware engineering career, we've got positions waiting just for you. Join with Rabbit Solutions and become one step closer to your potential! Check what suits you and feel free to apply!
           </p>
           <div class="mt-5"></div>
-          <button class="btn-lg btn-dark">Apply now!</button>
+          <router-link to="/apply" class="btn-lg btn-dark">Apply now!</router-link>
         </div>
 
         <!-- Ghost element for space -->
@@ -37,7 +37,7 @@
        <div class="row d-flex text-light text-center align-items-strech justify-content-between g-4">
 
         <div class="col-md">
-          <div class="card p-3" style="background: linear-gradient(90deg, #89216B, #DA4453)">
+          <div class="card p-3" style="background: linear-gradient(90deg, #89216B, #DA4453); border: none;">
 
             <div class="p-5">
               <img src="../assets/proper-workspace.svg" alt="" class="card-img-top img-fluid">
@@ -56,7 +56,7 @@
         </div>
 
         <div class="col-md">
-          <div class="card p-3" style="background: linear-gradient(45deg, #000428, #004e92)">
+          <div class="card p-3" style="background: linear-gradient(45deg, #000428, #004e92); border: none;">
             <div class="card-body">
 
               <div class="p-5">
@@ -75,7 +75,7 @@
         </div>
 
         <div class="col-md">
-          <div class="card p-3" style="background: linear-gradient(90deg, #4776E6, #8E54E9)">
+          <div class="card p-3" style="background: linear-gradient(90deg, #fe8c00, #f83600); border: none;">
 
             <div class="p-5">
               <img src="../assets/working-home.svg" alt="" class="card-img-top img-fluid">
