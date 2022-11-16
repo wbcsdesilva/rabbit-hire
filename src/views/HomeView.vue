@@ -1,8 +1,8 @@
 <template>
 
+  <!-- section 1 -->
   <section class="p-5 p-lg-0 pt-lg-5 text-center text-light text-sm-start" style="background: linear-gradient(90deg, #8E2DE2, #4A00E0);">
 
-    <!-- section 1 -->
     <div class="container py-5">
       <div class="d-flex align-items-center justify-content-between">
 
@@ -13,7 +13,7 @@
             For everyone that's looking to progress further in their sofware engineering career, we've got positions waiting just for you. Join with Rabbit Solutions and become one step closer to your potential! Check what suits you and feel free to apply!
           </p>
           <div class="mt-5"></div>
-          <router-link to="/apply" class="btn-lg btn-dark">Apply now!</router-link>
+          <router-link to="/apply" class="btn btn-lg btn-dark">Apply now!</router-link>
         </div>
 
         <!-- Ghost element for space -->

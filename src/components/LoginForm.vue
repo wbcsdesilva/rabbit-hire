@@ -15,10 +15,16 @@
                     <label for="adminpassword" class="form-label h5 text-warning">
                         Password:
                     </label>
-                    <input id="adminpassword" type="password" class="form-control bg-dark border-secondary text-light" required>
+                    <div class="input-group">
+                        <input id="adminpassword" type="password" class="form-control bg-dark border-secondary text-light" required>
+                        <button type="button" class="btn btn-warning text-dark">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="col mt-5 text-center">
-                    <button class="btn btn-warning btn-lg"><span class="fw-bold">Login</span></button>
+                    <!-- btn as a router link to test the admin page UI -->
+                    <router-link to="/admin" class="btn btn-warning btn-lg"><span class="fw-bold">Login</span></router-link>
                 </div>
             </div>
         </form>

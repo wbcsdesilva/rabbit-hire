@@ -31,6 +31,7 @@
   </nav>
 
   <router-view/>
+
 </template>
 <style>
 #app{

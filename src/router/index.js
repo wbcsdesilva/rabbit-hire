@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import AdminLoginView from '../views/AdminLoginView.vue'
 import JobApplicationFormView from '../views/JobApplicationView.vue'
+import AdminHomeView from '../views/AdminHomeView.vue'
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/apply',
     name: 'jobapplication',
     component: JobApplicationFormView
+  },
+  {
+    path: '/admin',
+    name: 'adminhome',
+    component: AdminHomeView
   }
 
 ]

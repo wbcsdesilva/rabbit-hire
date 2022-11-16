@@ -1,7 +1,6 @@
 <template>
 
     <!-- main section -->
-
     <section class="p-sm-5 pt-3 text-light align-items-center" style="background: linear-gradient(90deg, #8E2DE2, #4A00E0);">
 
         <div class="container">
