@@ -21,36 +21,26 @@
         <div class="table-responsive ps-3 pe-3">
             <table class="table table-dark">
                 <thead>
-                    <tr>
+                    <tr class="fw-bold">
                         <th>Name</th>
                         <th>Position</th>
-                        <th>Age</th>
-                        <th>Number</th>
-                        <th>Skills</th>
+                        <th>Email</th>
+                        <th class="text-center">Options</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <tr>
-                        <td>Sam</td>
-                        <td>SE-Intern</td>
-                        <td>24</td>
-                        <td>0778989678</td>
-                        <td>JS Elite</td>
+
+                    <!-- application data -->
+                    <tr v-for="application in applications" v-bind:key="application.id">
+                        <td>{{application.name}}</td>
+                        <td>{{application.position}}</td>
+                        <td>{{application.email}}</td>
+                        <td class="d-flex align-center justify-content-center">
+                            <a href="#" class="btn fw-bold me-2 text-dark rounded-pill" style="background-color: #dcff00;"><i class="bi bi-eye"></i> inspect</a>
+                            <button @click="deleteAfterConfirm(application.id)" class="btn btn-danger fw-bold ms-2 rounded-pill"><i class="bi bi-trash"></i> delete</button>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Jane</td>
-                        <td>QA-Intern</td>
-                        <td>21</td>
-                        <td>0778879090</td>
-                        <td>Blackbox Elite</td>
-                    </tr>
-                    <tr>
-                        <td>Sam</td>
-                        <td>SE-Associate</td>
-                        <td>25</td>
-                        <td>0726789678</td>
-                        <td>Node Elite</td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -59,7 +49,75 @@
 
 </template>
 <script>
+
+import applicationsCollectionRef from '@/firebase'
+
+import { getDocs, deleteDoc, doc } from '@firebase/firestore'
+import Swal from 'sweetalert2'
+
 export default {
 
+  data () {
+    return {
+      applications: []
+    }
+  },
+
+  methods: {
+    async getApplications () {
+      const applicationsSnapshot = await getDocs(applicationsCollectionRef)
+      const applicationHolder = []
+
+      applicationsSnapshot.forEach(application => {
+        const applicationData = application.data()
+        applicationData.id = application.id
+        applicationHolder.push(applicationData)
+      })
+
+      this.applications = applicationHolder
+    },
+
+    async deleteApplication (applicationId) {
+      const applicationRef = doc(applicationsCollectionRef, applicationId)
+      await deleteDoc(applicationRef)
+      this.$router.go()
+    },
+
+    deleteAfterConfirm (applicationId) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        color: '#ffffff',
+        background: '#222529',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Delete'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteApplication(applicationId)
+
+          Swal.fire({
+            title: 'Deleted!',
+            text: 'Job application discarded',
+            icon: 'success',
+            color: '#ffffff',
+            background: '#222529'
+          })
+        }
+      })
+    }
+  },
+
+  // created lifecycle hook
+  created () {
+    this.getApplications()
+  }
 }
 </script>
+<style>
+    .swal2-popup {
+    font-family: consolas;
+    }
+</style>
