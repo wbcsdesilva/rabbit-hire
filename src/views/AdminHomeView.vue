@@ -36,7 +36,7 @@
                         <td>{{application.position}}</td>
                         <td>{{application.email}}</td>
                         <td class="d-flex align-center justify-content-center">
-                            <a href="#" class="btn fw-bold me-2 text-dark rounded-pill" style="background-color: #dcff00;"><i class="bi bi-eye"></i> inspect</a>
+                            <router-link to="/inspect" class="btn fw-bold me-2 text-dark rounded-pill" style="background-color: #dcff00;"><i class="bi bi-eye"></i> inspect</router-link>
                             <button @click="deleteAfterConfirm(application.id)" class="btn btn-danger fw-bold ms-2 rounded-pill"><i class="bi bi-trash"></i> delete</button>
                         </td>
                     </tr>
