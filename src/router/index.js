@@ -33,7 +33,7 @@ const routes = [
     component: AdminHomeView
   },
   {
-    path: '/inspect',
+    path: '/inspect/:id',
     name: 'admininspectapplication',
     component: AdminInspectApplicationView
   }

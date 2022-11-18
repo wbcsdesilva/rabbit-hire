@@ -5,9 +5,9 @@
             <div class="row-cols-1">
 
                 <div class="col mt-5 text-center">
-                    <i class="bi bi-person h1 text-secondary"></i>
-                    <h2 class="fw-bold m-3 text-warning">Mithila Pabasara</h2>
-                    <h4 class="fw-bold mb-5 text-info" >As a Frontend Dev</h4>
+                    <img src="../assets/profile-pic.svg" alt="" class="img-fluid w-25">
+                    <h2 class="fw-bold m-3" style="color: #dcff00;"> {{applicationHolder.name}} </h2>
+                    <h4 class="fw-bold mb-5 text-info" >As a {{applicationHolder.position}}</h4>
                 </div>
 
                 <div class="col mb-3 text-center">
@@ -15,55 +15,50 @@
                         <div class="col-md mb-3">
                             <i class="bi bi-calendar h3 mb-2 d-block"></i>
                             <p class="fw-bold">Birthdate</p>
-                            <p>2003-05-10</p>
+                            <p>{{applicationHolder.birthdate}}</p>
                         </div>
                         <div class="col-md mb-3">
                             <i class="bi bi-envelope h3 mb-2 d-block"></i>
                             <p class="fw-bold">Email</p>
-                            <p>mithilayayya@gmail.com</p>
+                            <p>{{applicationHolder.email}}</p>
                         </div>
                         <div class="col-md mb-3">
                             <i class="bi bi-phone h3 mb-2 d-block"></i>
                             <p class="fw-bold">Contact No</p>
-                            <p>715542477</p>
+                            <p>{{applicationHolder.contactNo}}</p>
                         </div>
                     </div>
                     <hr class="mt-3">
                 </div>
 
                 <div class="col-md mt-5">
-                    <h4 class="fw-bold text-primary">About:</h4>
-                    <p> As an undergraduate pursing Software
-                        Engineering. I am seeking a software
-                        developer role which comply with my
-                        skills which will enable me to contribute
-                        at my highest potential while maximizing
-                        my knowledge in the field. I am hard
-                        working, motivated and an enthusiastic
-                        individual always striving to achieve the
-                        highest standard possible, any given
-                        task in any situation.
+                    <h4 class="fw-bold" style="color: #c479ff;">About:</h4>
+                    <p>
+                        {{applicationHolder.about}}
                     </p>
                 </div>
 
                 <div class="col-md mt-5">
-                    <h4 class="fw-bold text-warning">Experience:</h4>
-                    <p> 2 years as a Software Developer at namico1 year as a UI UX designer at namico.
+                    <h4 class="fw-bold" style="color: #ffff00;">Work experience:</h4>
+                    <p>
+                        {{applicationHolder.experience}}
                     </p>
                 </div>
 
                 <div class="col-md mt-5">
                     <div class="row">
                         <div class="col-md">
-                            <h4 class="fw-bold text-success">Education:</h4>
-                            <p> Degree in Software Engineering <br> Degree in UI UX design</p>
+                            <h4 class="fw-bold" style="color: #00ff99;">Education:</h4>
+                            <p>
+                                {{applicationHolder.education}}
+                            </p>
                         </div>
                         <div class="col-md">
-                            <h4 class="fw-bold text-danger">Technologies:</h4>
+                            <h4 class="fw-bold" style="color: #1a75ff">Technologies:</h4>
                             <ul>
-                                <li>Vue JS</li>
-                                <li>Express JS</li>
-                                <li>Node JS</li>
+                                <li v-for="(technology, index) in applicationHolder.technologies" :key="index">
+                                    {{technology}}
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -73,14 +68,15 @@
 
                 <div class="col-md mt-5 text-center ">
                     <h4 class="fw-bold text-secondary">Application Approval Status</h4>
-                    <h4 class="fw-bold text-warning">Pending</h4>
+                    <h4 class="fw-bold text-warning"> {{applicationHolder.status}} </h4>
                 </div>
 
                 <div class="col-md mt-5 text-center">
 
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary btn-lg"><i class="bi bi-check"></i> Approve</button>
-                        <router-link to="/admin" type="button" class="btn btn-danger btn-lg">Go back <i class="bi bi-box-arrow-right"></i> </router-link>
+                        <button @click="updateAfterConfirm('approved')" type="button" class="btn btn-primary btn-lg"><i class="bi bi-check"></i> Approve</button>
+                        <button @click="updateAfterConfirm('denied')" type="button" class="btn btn-danger btn-lg"><i class="bi bi-x"></i> Deny</button>
+                        <router-link to="/admin" type="button" class="btn btn-warning btn-lg"><i class="bi bi-box-arrow-left"></i>  Go back</router-link>
                     </div>
 
                 </div>
@@ -90,7 +86,93 @@
     </section>
 </template>
 <script>
+
+import applicationsCollectionRef from '@/firebase'
+
+import { doc, getDoc, setDoc } from '@firebase/firestore'
+import Swal from 'sweetalert2'
+
 export default {
+
+  data () {
+    return {
+
+      applicationSelectedId: null,
+      applicationDocRef: null,
+
+      applicationHolder: {
+        name: null,
+        email: null,
+        birthdate: null,
+        contactNo: null,
+        about: null,
+        education: null,
+        experience: null,
+        position: null,
+        technologies: [],
+        status: null
+      }
+
+    }
+  },
+
+  methods: {
+
+    async getSingleApplication () {
+      this.applicationDocRef = doc(applicationsCollectionRef, this.applicationSelectedId)
+      const application = await getDoc(this.applicationDocRef)
+      this.applicationHolder = application.data()
+    },
+
+    async updateApplicationStatus (status) {
+      this.applicationHolder.status = status
+      await setDoc(this.applicationDocRef, this.applicationHolder)
+    },
+
+    updateAfterConfirm (status) {
+      Swal.fire({
+        title: 'Update application status ?',
+        text: `This'll set the approval status to ${status}`,
+        icon: 'question',
+        showCancelButton: true,
+        color: '#ffffff',
+        background: '#222529',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.updateApplicationStatus(status)
+
+          if (status === 'approved') {
+            Swal.fire({
+              title: 'Approved!',
+              text: 'Job application approved',
+              icon: 'success',
+              color: '#ffffff',
+              background: '#222529'
+            })
+          } else {
+            Swal.fire({
+              title: 'Denied!',
+              text: 'Job application denied',
+              icon: 'error',
+              color: '#ffffff',
+              background: '#222529'
+            })
+          }
+
+          this.$router.push('/admin')
+        }
+      })
+    }
+
+  },
+
+  created () {
+    this.applicationSelectedId = this.$route.params.id
+    this.getSingleApplication()
+  }
 
 }
 </script>
