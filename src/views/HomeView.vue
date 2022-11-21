@@ -233,7 +233,7 @@
 
           <div id="faq-four" class="accordion-collapse collapse" data-bs-parent="#faq-accordion">
             <div class="accordion-body">
-               Click apply now at the start of the page, fill and submit the application form and wait until it gets approved by an administrator. When it gets <span class="text-success fw-bold">approved</span> or <span class="text-danger fw-bold">declined</span> by an administrator you'll be notified !
+               Click <span class="text-primary fw-bold">apply now</span> at the start of the page, fill and submit the application form and wait until it gets checked by an administrator. Your application will either be <span class="text-success fw-bold">approved</span> or <span class="text-danger fw-bold">declined</span>
             </div>
           </div>
 

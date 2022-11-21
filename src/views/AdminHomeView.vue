@@ -5,7 +5,7 @@
         <div class="container py-5">
             <div class="d-flex justify-content-between">
                 <div>
-                    <h1 class="fw-bold mb-5">Welcome <span style="color: #dcff00;" >Kavindu !</span></h1>
+                    <h1 class="fw-bold mb-5">Welcome <span style="color: #dcff00;" >Administrator!</span></h1>
                     <p class="lead">Manage the candidates that have applied for jobs here. Check their profiles and see if there's anything you like !</p>
                 </div>
                 <span class="m-5 d-none d-sm-block"></span>
