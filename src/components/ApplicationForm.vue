@@ -166,7 +166,10 @@ import Swal from 'sweetalert2'
 
 // for validations
 import useValidate from '@vuelidate/core'
-import { required, email, minLength } from '@vuelidate/validators'
+import { required, email, minLength, helpers } from '@vuelidate/validators'
+
+// custom
+const beforeToday = (value) => new Date(value).getTime() < new Date().getTime()
 
 export default {
 
@@ -197,7 +200,7 @@ export default {
       application: {
         name: { required, minLength: minLength(5) },
         email: { required, email },
-        birthdate: { required },
+        birthdate: { required, beforeToday: helpers.withMessage('The selected date is over today', beforeToday) },
         contactNo: { required, minLength: minLength(9) },
         about: { required },
         education: { required },
@@ -209,6 +212,7 @@ export default {
   },
 
   methods: {
+
     async addApplication () {
       this.v$.$validate()
 
